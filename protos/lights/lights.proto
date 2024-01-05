@@ -45,7 +45,7 @@ message SetMatrixResponse {
 
 message SetStripRequest {
     uint32 strip_id = 1;
-    LightStrip strip_colors = 1;
+    LightStrip strip_colors = 2;
 }
 
 message SetStripResponse {
