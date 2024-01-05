@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+package mavsdk.rpc.lights;
+
+import "mavsdk_options.proto";
+
+option java_package = "io.mavsdk.lights";
+option java_outer_classname = "LightsProto";
+
+/**
+ * Control vehicle lights.
+ * 
+ * Each light is addressed by a pair of numbers - the strip ID and the light ID.
+ * Or euivalently we can consider each light as being part of a 2D matrix of lights.
+ * The API assumes each light is a WRGB LED, with 8-bit depth per compoent.
+ * Each LED then has 4 bytes of data.
+ */
+
+service LightsService {
+
+    /* 
+     * Set all lights to the given colors. 
+    */
+    rpc SetMatrix(SetMatrixRequest) returns (SetMatrixResponse) { option (mavsdk.options.async_type) = SYNC; }
+
+    /* 
+     * Set the lights on a given strip to the given colors. 
+    */
+    rpc SetStrip(SetStripRequest) returns (SetStripResponse) { option (mavsdk.options.async_type) = SYNC; }
+
+    /* 
+     * Set whether the lights should follow the flight mode. 
+    */
+    rpc FollowFlightMode(FollowFlightModeRequest) returns (FollowFlightModeResponse) { option (mavsdk.options.async_type) = SYNC; }
+
+}
+
+message SetMatrixRequest {
+    LightMatrix matrix_colors = 1;
+}
+
+message SetMatrixResponse {
+    LightResult light_result = 1;
+}
+
+message SetStripRequest {
+    uint32 strip_id = 1;
+    LightStrip strip_colors = 1;
+}
+
+message SetStripResponse {
+    LightResult light_result = 1;
+}
+
+message FollowFlightModeRequest {
+    bool enable = 1;
+}
+
+message FollowFlightModeResponse {
+    LightResult light_result = 1;
+}
+
+enum LightResult {
+    LIGHT_RESULT_UNKNOWN = 0;
+    LIGHT_RESULT_SUCCESS = 1;
+    LIGHT_RESULT_BUSY = 2;
+    LIGHT_RESULT_NOT_CONNECTED = 3;
+    LIGHT_RESULT_CONNECTION_ERROR = 4;
+    LIGHT_RESULT_INVALID_ARGUMENT = 5;
+    LIGHT_RESULT_TIMEOUT = 6;
+    LIGHT_RESULT_UNSUPPORTED = 7;
+    LIGHT_RESULT_UNKNOWN_ERROR = 8;
+}
+
+message LightMatrix {
+    repeated LightStrip strips = 1;
+}
+
+message LightStrip {
+    repeated Light lights = 1;
+}
+
+message Light {
+    uint32 color = 1;
+}
