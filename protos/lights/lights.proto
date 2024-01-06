@@ -77,9 +77,5 @@ message LightMatrix {
 }
 
 message LightStrip {
-    repeated Light lights = 1;
-}
-
-message Light {
-    uint32 color = 1;
+    repeated uint32 lights = 1;
 }
