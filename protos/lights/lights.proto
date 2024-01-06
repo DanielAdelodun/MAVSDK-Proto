@@ -40,7 +40,7 @@ message SetMatrixRequest {
 }
 
 message SetMatrixResponse {
-    LightsResult light_result = 1;
+    LightsResult lights_result = 1;
 }
 
 message SetStripRequest {
@@ -49,7 +49,7 @@ message SetStripRequest {
 }
 
 message SetStripResponse {
-    LightsResult light_result = 1;
+    LightsResult lights_result = 1;
 }
 
 message FollowFlightModeRequest {
@@ -57,7 +57,7 @@ message FollowFlightModeRequest {
 }
 
 message FollowFlightModeResponse {
-    LightsResult light_result = 1;
+    LightsResult lights_result = 1;
 }
 
 message LightsResult {
