@@ -40,7 +40,7 @@ message SetMatrixRequest {
 }
 
 message SetMatrixResponse {
-    LightResult light_result = 1;
+    LightsResult light_result = 1;
 }
 
 message SetStripRequest {
@@ -49,7 +49,7 @@ message SetStripRequest {
 }
 
 message SetStripResponse {
-    LightResult light_result = 1;
+    LightsResult light_result = 1;
 }
 
 message FollowFlightModeRequest {
@@ -57,10 +57,10 @@ message FollowFlightModeRequest {
 }
 
 message FollowFlightModeResponse {
-    LightResult light_result = 1;
+    LightsResult light_result = 1;
 }
 
-message LightResult {
+message LightsResult {
     // Possible results returned for light requests
     enum Result {
         RESULT_UNKNOWN = 0; // Unknown result
