@@ -77,10 +77,10 @@ message LightResult {
     string result_str = 2; // Human-readable English string describing the result
 }
 
-message LightMatrix {
-    repeated LightStrip strips = 1;
-}
-
 message LightStrip {
     repeated uint32 lights = 1;
+}
+
+message LightMatrix {
+    repeated LightStrip strips = 1;
 }
