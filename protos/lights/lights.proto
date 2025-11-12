@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package mavsdk.rpc.lights;
+
+import "mavsdk_options.proto";
+
+option java_package = "io.mavsdk.lights";
+option java_outer_classname = "LightsProto";
+
+/**
+ * Control vehicle lights.
+ * 
+ * Each light is addressed by a pair of numbers - the strip ID and the light ID.
+ * Or euivalently we can consider each light as being part of a 2D matrix of lights.
+ * The API assumes each light is a WRGB LED, with 8-bit depth per compoent.
+ * Each LED then has 4 bytes of data.
+ */
+
+service LightsService {
+
+    /* 
+     * Set all lights to the given colors. 
+    */
+    rpc SetMatrix(SetMatrixRequest) returns (SetMatrixResponse) { option (mavsdk.options.async_type) = SYNC; }
+
+    /* 
+     * Set the lights on a given strip to the given colors. 
+    */
+    rpc SetStrip(SetStripRequest) returns (SetStripResponse) { option (mavsdk.options.async_type) = SYNC; }
+
+    /* 
+     * Set whether the lights should follow the flight mode. 
+    */
+    rpc FollowFlightMode(FollowFlightModeRequest) returns (FollowFlightModeResponse) { option (mavsdk.options.async_type) = SYNC; }
+
+}
+
+message SetMatrixRequest {
+    LightMatrix matrix_colors = 1;
+}
+
+message SetMatrixResponse {
+    LightsResult lights_result = 1;
+}
+
+message SetStripRequest {
+    uint32 strip_id = 1;
+    LightStrip strip_colors = 2;
+}
+
+message SetStripResponse {
+    LightsResult lights_result = 1;
+}
+
+message FollowFlightModeRequest {
+    bool enable = 1;
+}
+
+message FollowFlightModeResponse {
+    LightsResult lights_result = 1;
+}
+
+message LightsResult {
+    // Possible results returned for light requests
+    enum Result {
+        RESULT_UNKNOWN = 0; // Unknown result
+        RESULT_SUCCESS = 1; // Request succeeded
+        RESULT_NO_SYSTEM = 2; // No system is connected
+        RESULT_CONNECTION_ERROR = 3; // Connection error
+        RESULT_BUSY = 4; // Vehicle is busy
+        RESULT_OUT_OF_BOUNDS = 5; // Strip or Light index out of bounds
+        RESULT_TIMEOUT = 6; // Request timed out
+        RESULT_FAILED = 7; // Request failed
+    }
+
+    Result result = 1; // Result enum value
+    string result_str = 2; // Human-readable English string describing the result
+}
+
+message LightStrip {
+    repeated uint32 lights = 1;
+}
+
+message LightMatrix {
+    repeated LightStrip strips = 1;
+}
