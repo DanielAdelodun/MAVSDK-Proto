@@ -53,7 +53,7 @@ message SetStripResponse {
 }
 
 message FollowFlightModeRequest {
-    bool enable = 1;
+    uint32 strip_id = 1;
 }
 
 message FollowFlightModeResponse {
