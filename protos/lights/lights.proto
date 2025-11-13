@@ -65,12 +65,8 @@ message LightsResult {
     enum Result {
         RESULT_UNKNOWN = 0; // Unknown result
         RESULT_SUCCESS = 1; // Request succeeded
-        RESULT_NO_SYSTEM = 2; // No system is connected
-        RESULT_CONNECTION_ERROR = 3; // Connection error
-        RESULT_BUSY = 4; // Vehicle is busy
-        RESULT_OUT_OF_BOUNDS = 5; // Strip or Light index out of bounds
-        RESULT_TIMEOUT = 6; // Request timed out
-        RESULT_FAILED = 7; // Request failed
+        RESULT_TIMEOUT = 2; // Request timed out
+        RESULT_FAILED = 3; // Request failed
     }
 
     Result result = 1; // Result enum value
