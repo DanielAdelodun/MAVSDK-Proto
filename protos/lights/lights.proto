@@ -65,8 +65,9 @@ message LightsResult {
     enum Result {
         RESULT_UNKNOWN = 0; // Unknown result
         RESULT_SUCCESS = 1; // Request succeeded
-        RESULT_TIMEOUT = 2; // Request timed out
-        RESULT_FAILED = 3; // Request failed
+        RESULT_CONNECTION_ERROR = 2; // Connection error
+        RESULT_TIMEOUT = 3; // Request timed out
+        RESULT_FAILED = 4; // Request failed
     }
 
     Result result = 1; // Result enum value
